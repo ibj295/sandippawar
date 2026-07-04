@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandip Pawar — Data Analyst | Microsoft Fabric & Power BI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0F1A;
+    --ink-2:#121826;
+    --ink-3:#1A2233;
+    --bronze:#B4692A;
+    --silver:#AEB9CC;
+    --gold:#E8B84B;
+    --paper:#F3F1EA;
+    --slate:#8A93A8;
+    --line:#232C40;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; }
+
+  ::selection{ background:var(--gold); color:var(--ink); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  /* ---------- shared ---------- */
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:20px; height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  .medallion-rule{
+    height:2px;
+    width:100%;
+    background:linear-gradient(90deg, var(--bronze), var(--silver), var(--gold));
+    opacity:0.55;
+  }
+  section{ padding:96px 0; position:relative; }
+  .section-head{ margin-bottom:56px; max-width:640px; }
+  .section-head h2{ font-size:clamp(28px,4vw,38px); margin-bottom:14px; }
+  .section-head p{ color:var(--slate); font-size:16px; }
+
+  a.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 26px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-decoration:none;
+    border-radius:var(--radius);
+    transition:transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  a.btn-primary{ background:var(--gold); color:var(--ink); }
+  a.btn-primary:hover{ transform:translateY(-2px); background:#f2c766; }
+  a.btn-ghost{ border:1px solid var(--line); color:var(--paper); }
+  a.btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(11,15,26,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:68px;
+  }
+  .logo{ font-family:'JetBrains Mono', monospace; font-size:14px; font-weight:500; }
+  .logo span{ color:var(--gold); }
+  nav ul{ display:flex; gap:32px; list-style:none; }
+  nav a{ text-decoration:none; font-size:14px; color:var(--slate); transition:color 0.2s; }
+  nav a:hover{ color:var(--paper); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width:720px){
+    nav ul{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:68px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:60px;
+    align-items:center;
+    width:100%;
+  }
+  .hero h1{
+    font-size:clamp(38px,5.6vw,64px);
+    line-height:1.05;
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(90deg, var(--bronze), var(--gold));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{
+    font-size:17px;
+    color:var(--slate);
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* medallion pour visual */
+  .pour{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:28px;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:6px;
+  }
+  .pour-label{
+    display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .tier{
+    height:34px;
+    border-radius:3px;
+    position:relative;
+    overflow:hidden;
+    background:var(--ink-3);
+  }
+  .tier-fill{
+    height:100%;
+    width:0%;
+    display:flex;
+    align-items:center;
+    padding-left:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:500;
+    color:var(--ink);
+    animation:fillbar 1.6s ease forwards;
+  }
+  .tier-fill.bronze{ background:var(--bronze); animation-delay:0.1s; }
+  .tier-fill.silver{ background:var(--silver); animation-delay:0.5s; }
+  .tier-fill.gold{ background:var(--gold); animation-delay:0.9s; }
+  @keyframes fillbar{
+    from{ width:0%; }
+    to{ width:var(--w); }
+  }
+  .tier.bronze .tier-fill{ --w:62%; }
+  .tier.silver .tier-fill{ --w:81%; }
+  .tier.gold .tier-fill{ --w:96%; }
+
+  .pour-caption{
+    font-size:12px; color:var(--slate); font-family:'JetBrains Mono', monospace;
+    padding-top:6px; border-top:1px solid var(--line);
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-grid p{ color:var(--slate); margin-bottom:16px; font-size:16px; }
+  .stat-row{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:8px; }
+  .stat{ border-top:1px solid var(--line); padding-top:14px; }
+  .stat .num{ font-family:'Space Grotesk',sans-serif; font-size:28px; color:var(--gold); }
+  .stat .lbl{ font-size:12px; color:var(--slate); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* ---------- pipeline / skills ---------- */
+  .pipeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  .stage{
+    border:1px solid var(--line);
+    border-left:none;
+    padding:28px 22px;
+    background:var(--ink-2);
+    position:relative;
+  }
+  .stage:first-child{ border-left:1px solid var(--line); }
+  .stage-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:0.06em;
+    margin-bottom:12px;
+    display:block;
+  }
+  .stage h3{ font-size:19px; margin-bottom:14px; }
+  .stage ul{ list-style:none; }
+  .stage li{
+    font-size:13.5px;
+    color:var(--slate);
+    padding:6px 0;
+    border-top:1px solid var(--line);
+  }
+  .stage li:first-child{ border-top:none; }
+  .stage::after{
+    content:"→";
+    position:absolute;
+    right:-14px; top:50%;
+    transform:translateY(-50%);
+    color:var(--gold);
+    font-size:18px;
+    z-index:2;
+    background:var(--ink);
+    width:24px; height:24px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+  }
+  .stage:last-child::after{ display:none; }
+
+  @media (max-width:880px){
+    .pipeline{ grid-template-columns:1fr; }
+    .stage{ border-left:1px solid var(--line) !important; border-top:none; }
+    .stage:first-child{ border-top:1px solid var(--line); }
+    .stage::after{ content:"↓"; right:auto; left:50%; top:auto; bottom:-14px; transform:translateX(-50%); }
+  }
+
+  /* ---------- projects ---------- */
+  .projects{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .project{
+    background:var(--ink);
+    padding:38px;
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:32px;
+    transition:background 0.2s ease;
+  }
+  .project:hover{ background:var(--ink-2); }
+  .project-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--ink);
+    background:linear-gradient(90deg, var(--bronze), var(--gold));
+    padding:5px 9px;
+    border-radius:3px;
+    height:fit-content;
+    letter-spacing:0.04em;
+  }
+  .project h3{ font-size:21px; margin-bottom:10px; }
+  .project p{ color:var(--slate); font-size:14.5px; margin-bottom:14px; max-width:640px; }
+  .project-meta{ display:flex; gap:10px; flex-wrap:wrap; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--silver);
+    border:1px solid var(--line);
+    padding:4px 10px;
+    border-radius:20px;
+  }
+  @media (max-width:640px){
+    .project{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- contact ---------- */
+  .contact{
+    text-align:center;
+    padding:110px 0 90px;
+  }
+  .contact h2{ font-size:clamp(30px,5vw,46px); margin-bottom:18px; }
+  .contact p{ color:var(--slate); margin-bottom:36px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--slate);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">SANDIP<span>.</span>PAWAR</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Data Analyst — Microsoft Fabric &amp; Power BI</div>
+      <h1>Raw data in.<br><em>Decisions</em> out.</h1>
+      <p class="lead">I build end-to-end analytics pipelines — from messy source tables to Direct Lake semantic models — using the medallion architecture as more than a slide diagram. Bronze, silver, gold: every layer earns its place.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="pour">
+      <div class="pour-label"><span>Layer</span><span>Refinement</span></div>
+      <div class="tier bronze"><div class="tier-fill bronze mono">BRONZE — raw ingest</div></div>
+      <div class="tier silver"><div class="tier-fill silver mono">SILVER — cleaned &amp; modeled</div></div>
+      <div class="tier gold"><div class="tier-fill gold mono">GOLD — decision-ready</div></div>
+      <div class="pour-caption">medallion_pipeline.status() → all layers healthy</div>
+    </div>
+  </div>
+</section>
+
+<div class="medallion-rule"></div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">About</div>
+      <h2>Analytics work that starts messy and ships clean.</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I work across the Microsoft Fabric and Power BI stack — building pipelines that take duplicate-heavy, inconsistent source data and turn it into governed, queryable semantic models. That means writing the PySpark that cleans bronze into silver, designing the bridge and dimension tables that make a star schema actually behave, and shaping Direct Lake reports that stay fast at scale.</p>
+        <p>Alongside the hands-on build work, I write and teach — breaking down Fabric and Power BI concepts for other analysts, from pipeline activity types to Direct Lake vs. Import vs. DirectQuery trade-offs.</p>
+      </div>
+      <div>
+        <div class="stat-row">
+          <div class="stat"><div class="num">3+</div><div class="lbl">Fabric pipelines shipped</div></div>
+          <div class="stat"><div class="num">Direct Lake</div><div class="lbl">Preferred report mode</div></div>
+          <div class="stat"><div class="num">Medallion</div><div class="lbl">Architecture of choice</div></div>
+          <div class="stat"><div class="num">DAX + PySpark</div><div class="lbl">Daily tools</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Skills</div>
+      <h2>The stack, in the order data actually moves through it.</h2>
+      <p>Four real pipeline stages — not a random skill cloud. Each one is where a specific set of tools does its job.</p>
+    </div>
+    <div class="pipeline">
+      <div class="stage">
+        <span class="stage-tag mono">01 — INGEST</span>
+        <h3>Bring data in</h3>
+        <ul>
+          <li>Data Factory pipelines</li>
+          <li>OneLake shortcuts</li>
+          <li>Pipeline activities &amp; triggers</li>
+          <li>On Success / Completion / Failure logic</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <span class="stage-tag mono">02 — TRANSFORM</span>
+        <h3>Clean &amp; refine</h3>
+        <ul>
+          <li>PySpark notebooks</li>
+          <li>Lakehouse (bronze → silver)</li>
+          <li>Deduplication &amp; bridge tables</li>
+          <li>Dataflows Gen2</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <span class="stage-tag mono">03 — MODEL</span>
+        <h3>Structure for use</h3>
+        <ul>
+          <li>Warehouse &amp; semantic models</li>
+          <li>Star schema design</li>
+          <li>DAX measures</li>
+          <li>Relationship configuration</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <span class="stage-tag mono">04 — DELIVER</span>
+        <h3>Put it in front of people</h3>
+        <ul>
+          <li>Power BI Direct Lake reports</li>
+          <li>Import vs. DirectQuery tuning</li>
+          <li>Dashboard design</li>
+          <li>Stakeholder-ready visuals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="medallion-rule"></div>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Projects</div>
+      <h2>Selected work</h2>
+      <p>Each tag marks how far through the medallion pipeline the project runs.</p>
+    </div>
+    <div class="projects">
+      <div class="project">
+        <div class="project-tag mono">BRONZE → GOLD</div>
+        <div>
+          <h3>End-to-End Sales Analytics Pipeline</h3>
+          <p>Full medallion-architecture build: raw sales data ingested through Data Factory, cleaned and deduplicated with PySpark into bridge and dimension tables, then modeled and served through Power BI Direct Lake reports.</p>
+          <div class="project-meta">
+            <span class="chip">Microsoft Fabric</span>
+            <span class="chip">PySpark</span>
+            <span class="chip">Data Factory</span>
+            <span class="chip">Direct Lake</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-tag mono">GOLD LAYER</div>
+        <div>
+          <h3>Logistics Volume Dashboard</h3>
+          <p>Dark-themed BI dashboard tracking Awarded vs. Actual shipment volume, redesigned for clarity at a glance — built for operational reviews rather than static reporting.</p>
+          <div class="project-meta">
+            <span class="chip">Power BI</span>
+            <span class="chip">Dashboard Design</span>
+            <span class="chip">DAX</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-tag mono">KNOWLEDGE</div>
+        <div>
+          <h3>Fabric &amp; Power BI Concept Library</h3>
+          <p>An ongoing set of concept breakdowns and interview-prep notes covering Direct Lake vs. Import vs. DirectQuery, Lakehouse vs. Warehouse, and pipeline activity design — written for other analysts learning the stack.</p>
+          <div class="project-meta">
+            <span class="chip">Microsoft Fabric</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">Technical Writing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">Contact</div>
+    <h2>Let's build something worth modeling.</h2>
+    <p>Open to data analytics, BI development, and Microsoft Fabric project work.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/sandippawar" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ibj295" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:your.email@example.com" class="btn btn-ghost">Email</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 Sandip Pawar</span>
+  <span>Built with the same layers I use every day: bronze, silver, gold.</span>
+</footer>
+
+</body>
+</html>
